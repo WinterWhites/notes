@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装栈结构：
+        // 基于数组实现栈结构:
+        // 栈的常用操作：
+        // 1.push()：添加一个新元素到栈顶
+        // 2.pop():移除栈顶的元素，同时返回该元素
+        // 3.peek():返回栈顶的元素，不对栈进行任何操作
+        // 4.isEmpty():检查栈里面是否存在元素，存在就true，不存在就false
+        // 5.size():返回栈里面的元素个数，这个方法和数组中lengh属性类似
+        // 6.toString():将栈结构里面的内容以字符串形式返回
+        function Stack() {
+            // 栈属性:
+            this.items = [];
+            // 栈的相关操作：
+            // 1、压栈
+            Stack.prototype.push = function(ele) {
+                    this.items.push(ele);
+                }
+                // 2、出栈
+            Stack.prototype.pop = function() {
+                    return this.items.pop();
+                }
+                // 3、查看栈顶元素
+            Stack.prototype.peek = function() {
+                    return this.items[this.items.length - 1];
+                }
+                // 4、查看栈里是否存在元素
+            Stack.prototype.isEmpty = function() {
+                    return this.items.length == 0;
+                }
+                // 5、查看元素的个数
+            Stack.prototype.size = function() {
+                    return this.items.length;
+                }
+                // 6.以字符串形式返回
+            Stack.prototype.toString = function() {
+                return this.items.join(',', ' ');
+            }
+        }
+        var s = new Stack();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        s.pop();
+        console.log(s.peek());
+        console.log(s.isEmpty());
+        console.log(s.size());
+        console.log(s.toString());
+        console.log(s);
+        var str = [1, 2, 3];
+        console.log(str.join(' '));
+    </script>
+</body>
+
+</html>

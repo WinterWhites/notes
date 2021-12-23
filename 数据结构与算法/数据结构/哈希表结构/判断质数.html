@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 判断质数：
+        // 质数：只能被1和num它自己整除，意思为不能被2~num-1Z之间的数整除
+        function isPrime1(num) {
+            for (var i = 2; i < num; i++) {
+                if (num % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        console.log(isPrime(7));
+        // 算法提升一倍：
+        function isPrime2(num) {
+            var temp = parseInt(Math.sqrt(num));
+            for (var i = 0; i <= temp; i++) {
+                if (num % 2 == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

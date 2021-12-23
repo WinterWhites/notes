@@ -1,0 +1,91 @@
+基本使用：
+1. 提交基本步骤: git add -> git commit -m '描述'。
+2. 每当git status发生变化时，可以用git diff三种方式 来进行对比看看哪些内容被修改。
+	git diff -> 工作区相比于暂存区做了哪些动作
+	git diff head -> 工作区相比于版本库做了哪些动作
+	git diff --staged -> 暂存区相比于版本库做了哪些动作
+3. 查看版本库时用git log，美化可用git log --pretty=oneline。
+
+版本回退：
+4. 回退版本：git reset --hard head^    ，回退到上一个版本，有几个^就回退几个版本。
+5. 恢复版本：git reset --hard 版本commitId，这样就可以找回原来的版本了，git reflog可以
+查看历史版本库，head指向的版本库就是当前版本。
+
+工作区和暂存区(暂存区属于版本库)
+6. 当前目录即为工作区，.git文件夹为版本库，git add操作是把工作区的文件添加到版本库的暂存区，
+而git commit操作是把暂存区的文件提交到版本库分支(默认为master分支)。
+7. git中使用commit提交后，暂存区则会直接清空。
+8. 撤销修改(git reset既可以版本回退也可以从git add之后状态变回之前的状态)：
+   (1) git add之前: git checkout -- 文件名  , 
+   (2) git add之后: git reset head 文件名 -> git checkout -- 文件名
+   (3) git commit之后: 使用版本回退即可
+9. 删除文件:
+   (1) 删除文件：git rm 文件名 -> git commit
+   (3) 删除了文件但还没commit并且恢复：git reset head 文件名 -> git checkout -- 文件名
+10. 创建分支与合并分支(head指向master分支，master指向真正的版本库)
+   (1) 创建分支: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git config--global user.name ''
+git config --global user.email ''
+git init
+git add
+git commit -m ''
+git status
+git diff
+git diff head
+git diff --cached/--staged
+git log
+git log --pretty=oneline
+git reset --hard head^
+git reflog
+git reset --hard commitID
+git checkout -- 文件名
+git reset head 文件名
+git rm 文件名
+git checkout -b 分支名
+git branch 分支名
+git checkout 分支名
+git branch
+
+
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装队列:
+        function Queue() {
+            // 属性
+            this.items = [];
+            // 方法
+            //1、添加
+            Queue.prototype.enQueue = function(ele) {
+                    this.items.push(ele);
+                }
+                // 2、删除
+            Queue.prototype.deQueue = function() {
+                    return this.items.shift();
+                }
+                // 3、查看第一个元素
+            Queue.prototype.front = function() {
+                    return this.items[0];
+                }
+                // 4、查看队列是否为空
+            Queue.prototype.isEmpty = function() {
+                    return this.items.length == 0;
+                }
+                // 5、查看队列中元素个数
+            Queue.prototype.size = function() {
+                    return this.items.length;
+                }
+                // 6.转化为字符串形式
+            Queue.prototype.toString = function() {
+                var str = '';
+                for (var i = 0; i < this.items.length; i++) {
+                    str += this.items[i] + '\0';
+                }
+                return str;
+            }
+        }
+    </script>
+</body>
+
+</html>

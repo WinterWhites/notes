@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 树结构封装：
+        // 必须有根节点，每个节点都会有right、key、left三个属性
+        function BinarySearchTree() {
+            function Node(key) {
+                this.key = key;
+                this.left = null;
+                this.right = null;
+            }
+            this.root = null;
+            // 插入操作：
+            BinarySearchTree.prototype.insert = function(key) {
+                    var newNode = new Node(key);
+                    if (this.root == null) {
+                        this.root = newNode;
+                    } else {
+                        this.insertNode(this.root, newNode);
+                    }
+                }
+                // 插入递归：
+                // 第一次：node=9, newNode=14,
+                // 第二次：node=13, newNode=14,
+                // 第三次：node=15， newNode=14，
+                // 最后14<15,并且15的左为null，所以直接node.left = newNode即可
+            BinarySearchTree.prototype.insertNode = function(node, newNode) {
+                    if (newNode.key < node.key) {
+                        if (node.left == null) {
+                            node.left = newNode;
+                        } else {
+                            this.insertNode(node.left, newNode);
+                        }
+                    } else {
+                        if (node.right == null) {
+                            node.right = newNode;
+                        } else {
+                            this.insertNode(node.right, newNode);
+                        }
+                    }
+                }
+                // 遍历树：
+                // 1.先序遍历：
+            BinarySearchTree.prototype.preOederTraversal = function(handler) {
+                this.preOederTraversalNode(this.root, handler);
+            }
+            BinarySearchTree.prototype.preOederTraversalNode = function(node, handler) {
+                if (node != null) {
+                    handler(node.key);
+                    this.preOederTraversalNode(node.left, handler);
+                    this.preOederTraversalNode(node.right, handler);
+                }
+            }
+        }
+        var test = new BinarySearchTree();
+        test.insert(11);
+        test.insert(7);
+        test.insert(15);
+        test.insert(5);
+        test.insert(3);
+        test.insert(9);
+        test.insert(8);
+        test.insert(10);
+        test.insert(13);
+        test.insert(12);
+        test.insert(14);
+        test.insert(20);
+        test.insert(18);
+        test.insert(25);
+        test.insert(6);
+
+        var str = '';
+        test.preOederTraversal(function(key) {
+            str += key + '\0';
+        })
+        console.log(str);
+    </script>
+</body>
+
+</html>

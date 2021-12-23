@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装优先级队列:
+        function priorityQueue() {
+            // 类里面再嵌套一个类称之为类部类:
+            function queueEle(ele, priority) {
+                this.ele = ele;
+                this.priority = priority;
+            }
+            this.items = [];
+            // 1.插入元素:
+            priorityQueue.prototype.enQueue = function(ele, priority) {
+                    // 这里是类中类queueEle的实例化对象
+                    var queueele = new queueEle(ele, priority);
+                    if (this.items.length == 0) {
+                        this.items.push(queueele);
+                    } else {
+                        for (var i = 0; i < this.items.length; i++) {
+                            var flag = false;
+                            if (queueele.priority < this.items[i].priority) {
+                                this.items.splice(i, 0, queueele);
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if (flag == false) {
+                            this.items.push(queueele);
+                        }
+                    }
+                }
+                // 2、删除
+            priorityQueue.prototype.deQueue = function() {
+                    return this.items.shift();
+                }
+                // 3、查看第一个元素
+            priorityQueue.prototype.front = function() {
+                    return this.items[0];
+                }
+                // 4、查看队列是否为空
+            priorityQueue.prototype.isEmpty = function() {
+                    return this.items.length == 0;
+                }
+                // 5、查看队列中元素个数
+            priorityQueue.prototype.size = function() {
+                    return this.items.length;
+                }
+                // 6.转化为字符串形式
+            priorityQueue.prototype.toString = function() {
+                var str = '';
+                for (var i = 0; i < this.items.length; i++) {
+                    str += this.items[i] + '\0';
+                }
+                return str;
+            }
+        }
+        var test = new priorityQueue();
+        test.enQueue('王二', 1);
+        test.enQueue('张三', 10);
+        test.enQueue('李四', 7);
+        test.enQueue('麻子', 2);
+        test.enQueue('杨五', 8);
+        console.log(test);
+    </script>
+</body>
+
+</html>

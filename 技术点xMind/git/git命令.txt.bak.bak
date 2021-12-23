@@ -1,0 +1,23 @@
+(1) git config --global user.name: 设置本地git名字
+(2) git config --global user.email: 设置本地git邮箱
+(3) git init: 初始化git仓库
+(4) git add: 把文件添加到暂存区
+(5) git commit -m '描述': 将暂存区的文件提交的版本库
+(6) git status: 查看状态
+(7) git log: 查看提交日志(版本库)
+(8) git log --pretty=oneline --graph --abbrev-commit: 美化git log
+(9) git diff: 工作区VS暂存区
+(10) git diff head: 工作区VS版本库
+(11) git diff --cached/--staged: 暂存区VS版本库
+(12) git reset --hard head^: 版本库返回上一个提交状态(有几个^则返回几个版本)
+(13) git reset --hard 版本ID: 根据版本ID指定返回
+(14) git reflog: 查看历史版本库
+(15) git checkout -- 文件名: (在工作区修改文件，但并未add到暂存区) -> 工作区原始状态
+(16) git reset head 文件名: (在工作区修改文件并add到在暂存区) -> (在工作区修改文件，但并未add到暂存区)
+(17) git rm 文件名: 删除文件(如果要真的删除则还需要commit，如果误删则回到上一个版本库即可)
+(18) git branch: 查看分支状态
+(19) git checkout 分支名: 切换分支
+(20) git checkout -b 分支名 | git swtich -c 分支名: 创建并切换分支
+(21) git merge 要合并的分支名: 合并分支(冲突问题: 手动删除git增加的符号,后add和commit即可)
+(22) git branch -d 分支名: 删除分支
+(23) git merge --no-ff -m '' 分支名: 禁用fast forward模式并合并分支

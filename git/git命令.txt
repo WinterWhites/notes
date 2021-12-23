@@ -1,0 +1,71 @@
+git简介:
+(1) git config --global user.name: 设置本地git名字
+(2) git config --global user.email: 设置本地git邮箱
+
+(3) git init: 初始化git仓库
+(4) git add: 把文件添加到暂存区
+(5) git commit -m '描述': 将暂存区的文件提交的版本库
+
+(6) git status: 查看状态
+(7) git log: 查看提交日志(版本库)
+(8) git log --pretty=oneline --graph(图表形式) --abbrev-commit(缩写提交)
+(9) git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  
+
+
+(9) git diff: 工作区VS暂存区
+(10) git diff head: 工作区VS版本库
+(11) git diff --cached/--staged: 暂存区VS版本库
+
+(12) git reset --hard head^: 版本库返回上一个提交状态(有几个^则返回几个版本)
+(13) git reset --hard 版本ID: 根据版本ID指定返回
+(14) git reflog: 查看历史版本库
+
+(15) git checkout -- 文件名: 直接使用版本库替换当前工作区的状态(不管是修改还是删除，但是从未添加过的文件则无用)
+(16) git reset head 文件名: (在工作区修改文件并add到在暂存区) -> (在工作区修改文件，但并未add到暂存区)
+
+(17) git rm 文件名: 删除文件(如果要真的删除则还需要commit，如果误删则回到上一个版本库即可)
+删除如何恢复？(先git reset head，后git checkout -- 文件名)，这和15，16点相同
+
+
+远程仓库操作
+1. 关于ssh的连接
+(1) ssh-keygen -t rsa -C "邮箱地址"
+(2) 创建好后在你的用户目录下有一个.ssh目录下有一个私钥(id_rsa)和公钥(id_sra.pub)
+(3) 打开github进入账户界面的增加ssh key界面，把公钥复制在此处即可
+2. 连接远程库
+(1) 在github上创建一个新仓库
+git remote add origin https://github.com/WinterWhites/test.git
+git branch -M main
+git push -u origin main
+在本地的.git目录进行以上三步操作即可同步本地和远程库代码，之后修改提交直接git push origin master即可
+3. 关于克隆远程代码库到本地
+(1) 在github上创建一个仓库，并设置得有readme
+(2) 之后git clone 仓库地址
+说明：git支持多种协议，可以有https//，http//等，但是git//使用的是ssh协议，速度最快(而https这些还需要输入口令并且速度很慢)
+
+
+分支管理:
+(1) git branch: 查看分支状态
+(2) git switch 分支名: 切换分支
+(3) git switch -c 分支名: 创建并切换分支
+(4) git merge 要合并的分支名: 合并分支(冲突问题: 手动删除git增加的符号,后add和commit即可)
+(5) git branch -d 分支名: 删除分支
+
+特别：只要不是修改同一个地方(同一行)，则git会进行fast forward模式，但是可能会忽略提交记录，可用git merge --on-ff进行禁用快速模式
+
+关于Bug分支管理
+git stash: 隐藏工作区
+git stash list: 显示隐藏工作区分支列表
+git stash apply: 恢复但没有清除list stash
+git stash drop: 清除list stash
+git stash pop: 恢复工作区并清除list stash
+
+
+
+
+
+
+
+
+
+

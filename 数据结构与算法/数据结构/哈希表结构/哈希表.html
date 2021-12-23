@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 哈希表：运用链地址法
+        function hashTable() {
+            // 属性:
+            // 最外层数组
+            this.arr = [];
+            // 桶个数：
+            this.length = 7;
+            // 桶里面的数组个数：
+            this.eleLength = 0;
+
+            // 方法
+            // 哈希函数
+            hashTable.prototype.hashFunc = function(str, size) {
+                    var hashCode = 0;
+                    // 霍纳算法(计算hashCode的值):
+                    for (var i = 0; i < str.length; i++) {
+                        hashCode = hashCode * 37 + str.charCodeAt(i);
+                    }
+                    // 取模操作
+                    var index = hashCode % size;
+                    return index;
+                }
+                // 删除&插入操作：
+            hashTable.prototype.put = function(key, value) {
+                    // 获取索引号：
+                    var index = this.hashFunc(key, this.length);
+                    // 取出对应的桶：
+                    var bucket = this.arr[index];
+                    // 判断桶里面是否为空：
+                    if (bucket == null) {
+                        bucket = [];
+                        this.arr[index] = bucket;
+                    }
+                    // 判断是否为修改元素操作：
+                    for (var i = 0; i < bucket.length; i++) {
+                        var temp = bucket[i];
+                        if (temp[0] == key) {
+                            temp[1] = value;
+                            return;
+                        }
+                    }
+                    // 添加操作：
+                    bucket.push([key, value]);
+                    this.eleLength++;
+                    // 判断是否需要扩容：
+                    if (this.eleLength < this.length * 0.75) {
+                        var newSize = this.length * 2;
+                        var newPrime = this.getPrime(newSize);
+                        this.resize(newPrime);
+                    }
+                }
+                // 获取元素：
+            hashTable.prototype.get = function(key) {
+                    var index = this.hashFunc(key, this.length);
+                    var bucket = this.arr[index];
+                    if (bucket == null) {
+                        return null;
+                    }
+                    for (var i = 0; i < bucket.length; i++) {
+                        var temp = bucket[i];
+                        if (temp[0] == key) {
+                            return temp[1];
+                        }
+                    }
+                    return null;
+                }
+                // 删除元素：
+            hashTable.prototype.remove = function(key) {
+                    var index = this.hashFunc(key, this.length);
+                    var bucket = this.arr[index];
+                    if (bucket == null) {
+                        return null;
+                    }
+                    for (var i = 0; i < bucket.length; i++) {
+                        var temp = bucket[i];
+                        if (temp[0] == key) {
+                            bucket.splice(i, 1);
+                            this.eleLength--;
+                            // 缩量：
+                            if (this.length > 7 && this.eleLength < this.length * 0.25) {
+                                var newSize = Math.floor(this.length / 2);
+                                var newPrime = this.getPrime(newSize);
+                                this.resize(newPrime);
+                            }
+                            return temp[1];
+                        }
+                    }
+                    return null;
+                }
+                //其他方法：
+                // 判断哈希表是否为null:
+            hashTable.prototype.isEmpty = function() {
+                    return this.eleLength == 0;
+                }
+                // 获取哈希表元素个数：
+            hashTable.prototype.size = function() {
+                    return this.eleLength;
+                }
+                // 扩容：
+            hashTable.prototype.resize = function(newLength) {
+                    // 1、保存旧数组的内容
+                    var oldArr = this.arr;
+                    // 2、重置所有数组
+                    this.arr = [];
+                    this.eleLength = 0;
+                    this.length = newLength;
+                    // 遍历旧数组里面所有的桶：
+                    for (var i = 0; i < oldArr.length; i++) {
+                        var bucket = oldArr[i];
+                        if (bucket == null) {
+                            continue;
+                        }
+                        for (var j = 0; j < bucket.length; j++) {
+                            var temp = bucket[j];
+                            this.put(temp[0], temp[1]);
+                        }
+                    }
+                }
+                // 判断一个数是否为质数：
+            hashTable.prototype.isPrime = function(num) {
+                    temp = parseInt(Math.sqrt(num));
+                    for (var i = 2; i <= temp; i++) {
+                        if (num % 2 == 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                // 获取质数：
+            hashTable.prototype.getPrime = function(num) {
+                while (!this.isPrime(num)) {
+                    num++;
+                }
+                return num;
+            }
+        }
+        var ht = new hashTable();
+        ht.put('你', '123');
+        ht.put('asdd', '456');
+        ht.put('jyrc', '789');
+        console.log(ht);
+    </script>
+</body>
+
+</html>

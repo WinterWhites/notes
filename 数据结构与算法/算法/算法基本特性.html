@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装排序：
+        function sort() {
+            this.array = [];
+            sort.prototype.insert = function(item) {
+                this.array.push(item);
+            }
+            sort.prototype.toString = function() {
+                return this.array.join('\0');
+            }
+            sort.prototype.size = function() {
+                return this.array.length;
+            }
+            sort.prototype.swap = function(n, m) {
+                var temp = this.array[n];
+                this.array[n] = this.array[m];
+                this.array[m] = temp;
+            }
+
+            // 排序算法：
+            //  1.冒泡排序：
+            sort.prototype.bubbleSort = function() {
+                    var length = this.size();
+                    for (var i = 0; i < length - 1; i++) {
+                        for (var j = 0; j < length - 1 - i; j++) {
+                            if (this.array[j] > this.array[j + 1]) {
+                                this.swap(j, j + 1);
+                            }
+                        }
+                    }
+                    return this.array;
+                }
+                // 2. 选择排序
+            sort.prototype.selectionSort = function() {
+                    var length = this.size();
+                    for (var i = 0; i < length; i++) {
+                        var min = i;
+                        for (var j = i + 1; j < length; j++) {
+                            if (this.array[min] > this.array[j]) {
+                                this.swap(min, j);
+                            }
+                        }
+                    }
+                    return this.array;
+                }
+                // 3. 插入排序：
+            sort.prototype.insertionSort = function() {
+                    var length = this.size();
+                    for (var i = 1; i < length; i++) {
+                        var temp = this.array[i];
+                        while (this.array[i - 1] > temp && i > 0) {
+                            this.array[i] = this.array[i - 1];
+                            i--;
+                        }
+                        this.array[i] = temp;
+                    }
+                    return this.array;
+                }
+                // 4. 希尔排序：
+                //  8  4  9  1  6
+                //  8  1  9  4  6
+                // 
+            sort.prototype.shellSort = function() {
+                var length = this.size();
+                var gap = Math.floor(length / 2);
+                while (gap >= 1) {
+                    for (var i = gap; i < length; i++) {
+                        var temp = this.array[i];
+                        while (this.array[i - gap] > temp && i > gap - 1) {
+                            this.array[i] = this.array[i - gap];
+                            i -= gap;
+                        }
+                        this.array[i] = temp;
+                    }
+                    gap = Math.floor(gap / 2);
+                }
+                return this.array;
+            }
+
+            // 5. 快速排序
+            sort.prototype.quickSort = function() {
+                this.quickSortCode(0, this.size() - 1);
+                return this.array;
+            }
+            sort.prototype.quickSwap = function(left, right) {
+                    var center = Math.floor((left + right) / 2); // 2
+                    if (this.array[left] > this.array[center]) this.swap(left, center);
+                    //  12  5  18  0  8
+                    if (this.array[center] > this.array[right]) this.swap(center, right);
+                    //  12  5  8  0  18
+                    if (this.array[left] > this.array[center]) this.swap(left, center);
+                    //  8  5  12  0  18
+                    this.swap(center, right - 1);
+                    return this.array[right - 1];
+                }
+                //  18  5  12  0  8
+            sort.prototype.quickSortCode = function(left, right) {
+                if (left >= right) return;
+                var pivot = this.quickSwap(left, right);
+                var i = left;
+                var j = right - 1;
+                while (true) {
+                    while (this.array[++i] < pivot) {};
+                    while (this.array[--j] > pivot) {};
+                    if (i < j) {
+                        this.swap(i, j);
+                    } else {
+                        break;
+                    }
+                }
+                this.swap(i, right - 1);
+                this.quickSortCode(left, i - 1);
+                this.quickSortCode(i + 1, right);
+            }
+        }
+        var test = new sort();
+        test.insert(66);
+        test.insert(88);
+        test.insert(12);
+        test.insert(87);
+        test.insert(100);
+        test.insert(5);
+        test.insert(566);
+        test.insert(23);
+        // console.log(test.insertionSort());
+        console.log(test.quickSort());
+    </script>
+</body>
+
+</html>

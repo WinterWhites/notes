@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装集合：
+        // 集合的两个特性:无序和唯一
+        function Set() {
+            this.items = {};
+            // add()方法：输入一个元素，添加入集合中
+            Set.prototype.add = function(value) {
+                    this.items[value] = value;
+                }
+                // remove()方法：删除某个元素
+            Set.prototype.remove = function(value) {
+                    // 判断唯一性
+                    if (has(value) == false) {
+                        return false;
+                    }
+                    delete this.items.value;
+                    return true;
+                }
+                // has()方法：检查集合里面是否存在这个元素
+            Set.prototype.has = function(value) {
+                    return this.items.hasOwnProperty(value);
+                }
+                // clear()方法：删除集合中的所有元素
+            Set.prototype.clear = function() {
+                    this.items = {};
+                }
+                // size()方法：返回集合的个数
+            Set.prototype.size = function() {
+                    return Object.keys(this.items).length;
+                }
+                // values()方法：返回一个用数组形式存储起来的
+            Set.prototype.values = function() {
+                    return Object.keys(this.items);
+                }
+                // union()方法：C = A并B
+            Set.prototype.union = function(setB) {
+                    var setA = this.values();
+                    var setB = setB.values();
+                    var setC = new Set();
+                    for (var i = 0; i < setA.length; i++) {
+                        setC.add(setA[i]);
+                    }
+                    for (var i = 0; i < setB.length; i++) {
+                        setC.add(setB[i]);
+                    }
+                    return setC;
+                }
+                // intersection()方法：C = A交B
+            Set.prototype.intersection = function(setB) {
+                    var setA = this.values();
+                    var setC = new Set();
+                    for (var i = 0; i < setA.length; i++) {
+                        if (setB.has(setA[i])) {
+                            setC.add(setA[i]);
+                        }
+                    }
+                    return setC;
+                }
+                // difference()方法：如果A集合中的元素在B集合中没有，就添加进C集合
+            Set.prototype.difference = function(setB) {
+                    var setA = this.values();
+                    var setC = new Set();
+                    for (var i = 0; i < setA.length; i++) {
+                        if (!setB.has(setA[i])) {
+                            setC.add(setA[i]);
+                        }
+                    }
+                    return setC;
+                }
+                // subset()方法：判断A集合中的所有元素在B中是否存在，存在就true，不存在false
+            Set.prototype.subset = function(setB) {
+                var setA = this.values();
+                for (var i = 0; i < setA.length; i++) {
+                    if (!setB.has(setA[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        var test = new Set();
+        test.add('aaa');
+        test.add('bbb');
+        test.add('ccc');
+        test.add('sss');
+        var test1 = new Set();
+        test1.add('aaa');
+        test1.add('bbb');
+        test1.add('ccc');
+        test1.add('dddd');
+        console.log(test.union(test1));
+        console.log(test.intersection(test1));
+        console.log(test.difference(test1));
+        console.log(test.difference(test1).values());
+        console.log(test.subset(test1));
+        var s = 1;
+        var m = 10;
+        var arr = [s, m];
+        console.log(arr);
+    </script>
+</body>
+
+</html>

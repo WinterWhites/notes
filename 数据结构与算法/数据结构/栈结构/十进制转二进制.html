@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Stack() {
+            // 栈属性:
+            this.items = [];
+            // 栈的相关操作：
+            // 1、压栈
+            Stack.prototype.push = function(ele) {
+                    this.items.push(ele);
+                }
+                // 2、出栈
+            Stack.prototype.pop = function() {
+                    return this.items.pop();
+                }
+                // 3、查看栈顶元素
+            Stack.prototype.peek = function() {
+                    return this.items[this.items.length - 1];
+                }
+                // 4、查看栈里是否存在元素
+            Stack.prototype.isEmpty = function() {
+                    return this.items.length == 0;
+                }
+                // 5、查看元素的个数
+            Stack.prototype.size = function() {
+                    return this.items.length;
+                }
+                // 6.以字符串形式返回
+            Stack.prototype.toString = function() {
+                var str = '';
+                for (var i = 0; i < this.items.length; i++) {
+                    str = str + this.items[i] + '\0';
+                }
+                return str;
+            }
+        }
+        // 封装十进制转二进制：
+        function Dec2bin(num) {
+            var stack = new Stack();
+            while (num > 0) {
+                stack.push(num % 2);
+                num = Math.floor(num / 2);
+            }
+            var result = '';
+            while (!stack.isEmpty()) {
+                result += stack.pop();
+            }
+            return result;
+        }
+        console.log(Dec2bin(3));
+    </script>
+</body>
+
+</html>

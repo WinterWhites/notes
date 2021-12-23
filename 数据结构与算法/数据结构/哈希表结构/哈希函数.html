@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 设计哈希函数：
+        // 1. 哈希函数的主要目的是把字符串转化为大数字(hashCode)
+        // 2. 再将这个大数字压缩至数组范围内
+        function hashFunc(str, size) {
+            var hashCode = 0;
+            // 霍纳算法(计算hashCode的值):
+            for (var i = 0; i < str.length; i++) {
+                hashCode = hashCode * 37 + str.charCodeAt(i);
+            }
+            // 取模操作
+            var index = hashCode % size;
+            return index;
+        }
+        // var hash = new hashFunc('qwer', 9);
+        console.log(hashFunc('qwer', 9));
+        console.log(hashFunc('sads', 9));
+        console.log(hashFunc('gher', 9));
+        console.log(hashFunc('oumx', 9));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 封装队列:
+        function Queue() {
+            // 属性
+            this.items = [];
+            // 方法
+            //1、添加
+            Queue.prototype.enQueue = function(ele) {
+                    this.items.push(ele);
+                }
+                // 2、删除
+            Queue.prototype.deQueue = function() {
+                    return this.items.shift();
+                }
+                // 3、查看第一个元素
+            Queue.prototype.front = function() {
+                    return this.items[0];
+                }
+                // 4、查看队列是否为空
+            Queue.prototype.isEmpty = function() {
+                    return this.items.length == 0;
+                }
+                // 5、查看队列中元素个数
+            Queue.prototype.size = function() {
+                    return this.items.length;
+                }
+                // 6.转化为字符串形式
+            Queue.prototype.toString = function() {
+                var str = '';
+                for (var i = 0; i < this.items.length; i++) {
+                    str += this.items[i] + '\0';
+                }
+                return str;
+            }
+        }
+        // 击鼓传花:
+        function passGame(nameList, num) {
+            // 1.创建队列结构
+            var queue = new Queue();
+            // 2.将所有人加入队列中:
+            for (var i = 0; i < nameList.length; i++) {
+                queue.enQueue(nameList[i]);
+            }
+            // 3. 开始数数字:
+            while (queue.size() > 1) {
+                // 不是num时重新加入到队列末尾,
+                // 是num的时候就去掉这个,下一个接着从开始数
+                for (var i = 0; i < num - 1; i++) {
+                    queue.enQueue(queue.deQueue());
+                }
+                // 数到num的去掉
+                queue.deQueue();
+            }
+            console.log(queue.size());
+            var lastName = queue.front();
+            console.log(lastName);
+            return nameList.indexOf(lastName);
+        }
+        var names = ['王二', '张三', '李四', '吴五', '杨六'];
+        console.log(passGame(names, 1));
+    </script>
+</body>
+
+</html>
